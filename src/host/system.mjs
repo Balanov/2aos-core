@@ -3,13 +3,13 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { isAbsolute, resolve } from 'node:path';
 import { canonicalJson, HttpError, require } from '../util.mjs';
 
-const WINDOWS = process.platform === 'win32';
+const WINDOWS = process.platform === 'win32', MACOS = process.platform === 'darwin';
 const BUILTIN = {
   'system.info': WINDOWS ? { executable: 'systeminfo', args: [] } : { executable: 'uname', args: ['-a'] },
   'disk.list': WINDOWS ? { executable: 'powershell.exe', args: ['-NoProfile', '-NonInteractive', '-Command', 'Get-CimInstance Win32_LogicalDisk | Select-Object DeviceID,VolumeName,FileSystem,Size,FreeSpace | ConvertTo-Json -Compress'] } : { executable: 'df', args: ['-h'] },
   'process.list': WINDOWS ? { executable: 'tasklist', args: ['/fo', 'csv'] } : { executable: 'ps', args: ['-eo', 'pid,ppid,comm,args'] },
-  'network.list': WINDOWS ? { executable: 'ipconfig', args: ['/all'] } : { executable: 'ip', args: ['addr'] },
-  'service.list': WINDOWS ? { executable: 'sc.exe', args: ['query', 'type=', 'service', 'state=', 'all'] } : { executable: 'systemctl', args: ['list-units', '--type=service', '--all', '--no-pager'] },
+  'network.list': WINDOWS ? { executable: 'ipconfig', args: ['/all'] } : MACOS ? { executable: 'ifconfig', args: [] } : { executable: 'ip', args: ['addr'] },
+  'service.list': WINDOWS ? { executable: 'sc.exe', args: ['query', 'type=', 'service', 'state=', 'all'] } : MACOS ? { executable: 'launchctl', args: ['list'] } : { executable: 'systemctl', args: ['list-units', '--type=service', '--all', '--no-pager'] },
   'privileges.current': WINDOWS ? { executable: 'whoami', args: ['/groups'] } : { executable: 'id', args: [] }
 };
 

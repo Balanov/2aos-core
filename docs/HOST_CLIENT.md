@@ -60,7 +60,7 @@ GET  /v1/host/changes
 
 ## Системные профили
 
-Read-only: `system.info`, `disk.list`, `process.list`, `network.list`, `service.list`, `privileges.current`.
+Read-only: `system.info`, `disk.list`, `process.list`, `network.list`, `service.list`, `privileges.current`. Предусмотрены отдельные команды для Windows, Linux и macOS.
 
 ```http
 POST /v1/host/system/process.list
