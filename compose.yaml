@@ -1,0 +1,17 @@
+services:
+  core:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8787:8787"
+    environment:
+      A2OS_MASTER_KEY: ${A2OS_MASTER_KEY:?Set base64-encoded 32-byte A2OS_MASTER_KEY}
+      A2OS_ADMIN_KEY: ${A2OS_ADMIN_KEY:-}
+      A2OS_REGISTRY_PUBLIC_KEY: ${A2OS_REGISTRY_PUBLIC_KEY:-}
+      A2OS_MODEL_ENABLED: ${A2OS_MODEL_ENABLED:-false}
+      A2OS_MODEL_URL: ${A2OS_MODEL_URL:-http://host.docker.internal:11434}
+      A2OS_ALLOWED_ENDPOINTS: ${A2OS_ALLOWED_ENDPOINTS:-http://host.docker.internal:11434}
+    volumes:
+      - 2aos-data:/data
+volumes:
+  2aos-data:

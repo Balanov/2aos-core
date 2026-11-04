@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "2aos.agent/v1",
+  "slug": "process-summary",
+  "version": "1.0.0",
+  "name": "Process summary",
+  "description": "Formats supplied facts without inventing business results",
+  "permissions": [],
+  "inputSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["headline", "facts"],
+    "properties": {
+      "headline": { "type": "string", "minLength": 1, "maxLength": 200 },
+      "facts": { "type": "array", "minItems": 1, "maxItems": 50, "items": { "type": "string", "minLength": 1, "maxLength": 1000 } }
+    }
+  },
+  "outputSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["title", "items"],
+    "properties": {
+      "title": { "type": "string" },
+      "items": { "type": "array", "items": { "type": "string" } }
+    }
+  },
+  "runtime": {
+    "kind": "declarative",
+    "steps": [
+      { "id": "format", "type": "template", "value": { "title": "{{input.headline}}", "items": "{{input.facts}}" } }
+    ],
+    "output": { "title": "{{steps.format.output.title}}", "items": "{{steps.format.output.items}}" }
+  },
+  "pricing": { "currency": "RUB", "monthlyMinor": 0 },
+  "developerBps": 7000
+}

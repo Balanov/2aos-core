@@ -1,0 +1,830 @@
+[
+  {
+    "slug": "chat-voice",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "ИИ‑Чатбот / Голосовой бот",
+    "cluster": "Клиентский сервис и продажи",
+    "description": [
+      "Отвечает в WhatsApp, Telegram и др., на сайте и по телефону 24/7",
+      "Сам записывает, уточняет время, принимает заказ, заносит в CRM",
+      "Передаёт оператору только сложные вопросы с историей диалога"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "chat-voice"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 1990000,
+      "setupMinor": 18990000,
+      "unit": null
+    },
+    "launchDays": 7,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 50 диалогов/мин",
+      "replacesOrAugments": "3 оператора колл‑центра / консультанта",
+      "claimedMonthlyFotMinor": 18000000,
+      "claimedMonthlySavingMinor": 23436000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "reputation",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "ИИ‑анализ отзывов и управление репутацией",
+    "cluster": "Клиентский сервис и продажи",
+    "description": [
+      "Автосбор отзывов со всех площадок 24/7",
+      "Ежедневная сводка: где написали, тон, кризисные темы",
+      "Мгновенное уведомление о негативе + готовый шаблон ответа",
+      "Статистика: кто и на что жалуется чаще всего"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "reputation"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 1490000,
+      "setupMinor": 11990000,
+      "unit": null
+    },
+    "launchDays": 5,
+    "hardware": "CPU: 2 ядра (i3 / Ryzen 3)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 100 отзывов/мин",
+      "replacesOrAugments": "2 специалиста по работе с отзывами",
+      "claimedMonthlyFotMinor": 12000000,
+      "claimedMonthlySavingMinor": 15624000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "application-scoring",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "ИИ‑скоринг заявок (кредиты, тендеры, лизинг)",
+    "cluster": "Клиентский сервис и продажи",
+    "description": [
+      "Проверяет документы и выдаёт решение за секунды 24/7",
+      "Оценивает риски точнее человека, не пропускает мошенников",
+      "Снижает просрочку и невозвраты"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "application-scoring"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 2990000,
+      "setupMinor": 27990000,
+      "unit": null
+    },
+    "launchDays": 10,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 50 заявок/мин",
+      "replacesOrAugments": "3 специалиста по скорингу",
+      "claimedMonthlyFotMinor": 27000000,
+      "claimedMonthlySavingMinor": 35154000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "content-generation",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "Генерация контента (тексты + изображения)",
+    "cluster": "Клиентский сервис и продажи",
+    "description": [
+      "Создаёт посты, статьи, описания товаров, баннеры без человека 24/7",
+      "Соблюдает ваш стиль под каждую площадку",
+      "Масштабирует контент: от 30 постов/часов без найма"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "content-generation"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 2490000,
+      "setupMinor": 32990000,
+      "unit": null
+    },
+    "launchDays": 7,
+    "hardware": "CPU: 8 ядер (i7 / Ryzen 7)\nGPU: RTX 3060 12GB ",
+    "advertised": {
+      "throughput": "от 30 постов/час (текст) + от 10 изображений/час",
+      "replacesOrAugments": "3 копирайтера / дизайнера",
+      "claimedMonthlyFotMinor": 30000000,
+      "claimedMonthlySavingMinor": 39060000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "driver-logistics",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "ИИ‑помощник водителя и логиста",
+    "cluster": "Клиентский сервис и продажи",
+    "description": [
+      "Маршруты с учётом пробок, веса и временных окон 24/7",
+      "Контроль режима труда и отдыха водителя через камеры",
+      "Автоматические путевые листы и учёт ГСМ",
+      "Снижение холостого пробега на 10–20%"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "driver-logistics"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 1990000,
+      "setupMinor": 20990000,
+      "unit": null
+    },
+    "launchDays": 10,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 1000 маршрутов/час",
+      "replacesOrAugments": "2 диспетчера",
+      "claimedMonthlyFotMinor": 20000000,
+      "claimedMonthlySavingMinor": 26040000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "invoice-ocr",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "OCR + IDP (интеллектуальная обработка документов)",
+    "cluster": "Документооборот и офисные процессы",
+    "description": [
+      "Фото счёта или накладной → реквизиты в 1С/ERP, сверка сумм 24/7",
+      "Подсвечивает расхождения между заказом, отгрузкой и оплатой",
+      "Архив с поиском по смыслу за секунды"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "invoice-ocr"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 2990000,
+      "setupMinor": 35990000,
+      "unit": null
+    },
+    "launchDays": 14,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 300 документов/мин",
+      "replacesOrAugments": "5 операторов ввода данных / архивариусов",
+      "claimedMonthlyFotMinor": 33500000,
+      "claimedMonthlySavingMinor": 43617000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "rpa",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "RPA + ИИ (цифровые сотрудники)",
+    "cluster": "Документооборот и офисные процессы",
+    "description": [
+      "Переносит данные между 1С, CRM, банком 24/7 без участия человека",
+      "Реагирует на события: пришёл счёт → создано платёжное поручение",
+      "Формирует отчёты, сверяет реестры без ошибок"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "rpa"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 1990000,
+      "setupMinor": 20990000,
+      "unit": null
+    },
+    "launchDays": 7,
+    "hardware": "CPU: 2 ядра (i3 / Ryzen 3)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 100 операций/мин",
+      "replacesOrAugments": "3 оператора 1С / делопроизводителя",
+      "claimedMonthlyFotMinor": 20000000,
+      "claimedMonthlySavingMinor": 26040000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "knowledge-rag",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "Интеллектуальный поиск и RAG",
+    "cluster": "Документооборот и офисные процессы",
+    "description": [
+      "Вопрос на любом языке → готовый ответ из внутренних документов",
+      "Ищет по смыслу, понимает связи между понятиями",
+      "Экономия до нескольких часов в неделю на сотрудника"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "knowledge-rag"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 1990000,
+      "setupMinor": 15990000,
+      "unit": null
+    },
+    "launchDays": 10,
+    "hardware": "CPU: 8 ядер (i7/Ryzen 7)\nGPU: RTX 3060 12GB (от 35 000 ₽) ",
+    "advertised": {
+      "throughput": "от 500 запросов/мин",
+      "replacesOrAugments": "2 специалиста внутренней поддержки",
+      "claimedMonthlyFotMinor": 16000000,
+      "claimedMonthlySavingMinor": 20832000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "accounting",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "ИИ‑ассистент для бухгалтерии",
+    "cluster": "Документооборот и офисные процессы",
+    "description": [
+      "Разбирает банковскую выписку: сверяет, предлагает проводки",
+      "Находит дубликаты, нестыковки, подозрительные операции",
+      "Готовит данные для налоговой отчётности"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "accounting"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 2490000,
+      "setupMinor": 21990000,
+      "unit": null
+    },
+    "launchDays": 10,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 50 выписок/мин",
+      "replacesOrAugments": "3 бухгалтера первичной документации",
+      "claimedMonthlyFotMinor": 21000000,
+      "claimedMonthlySavingMinor": 27342000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "translator",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "ИИ‑переводчик и локализация",
+    "cluster": "Документооборот и офисные процессы",
+    "description": [
+      "Перевод с сохранением терминологии и стиля 24/7",
+      "Поддержка редких языков и автоадаптация интерфейсов",
+      "Встраивается в CI/CD — локализация выходит без задержек"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "translator"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 1490000,
+      "setupMinor": 14990000,
+      "unit": null
+    },
+    "launchDays": 5,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 200 страниц/мин",
+      "replacesOrAugments": "2 переводчика",
+      "claimedMonthlyFotMinor": 14000000,
+      "claimedMonthlySavingMinor": 18228000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "forecasting",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "Прогнозная аналитика (спрос, продажи, закупки)",
+    "cluster": "Аналитика и планирование",
+    "description": [
+      "Ежедневный прогноз спроса по каждой позиции",
+      "Автоформирование заказов постав. на основе прогноза и остатков",
+      "Выявляет сезонность, тренды, предупреждает о падении продаж"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "forecasting"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 2490000,
+      "setupMinor": 20990000,
+      "unit": null
+    },
+    "launchDays": 10,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 50 прогнозов/час",
+      "replacesOrAugments": "2 аналитика / категорийных менеджера",
+      "claimedMonthlyFotMinor": 20000000,
+      "claimedMonthlySavingMinor": 26040000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "reporting",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "AI‑генерация отчётности (BI + NLP)",
+    "cluster": "Аналитика и планирование",
+    "description": [
+      "Готовый текстовый отчёт с выводами вместо таблиц и графиков",
+      "Отвечает на вопросы руководителя голосом или текстом",
+      "Авторассылка отчётов заинтересованным лицам по расписанию"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "reporting"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 1990000,
+      "setupMinor": 20990000,
+      "unit": null
+    },
+    "launchDays": 7,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 20 отчётов/час",
+      "replacesOrAugments": "2 аналитика / менеджера по отчётности",
+      "claimedMonthlyFotMinor": 20000000,
+      "claimedMonthlySavingMinor": 26040000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "security",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "ИИ‑Безопасность (мониторинг и антифрод)",
+    "cluster": "Безопасность и комплаенс",
+    "description": [
+      "Анализ логов, транзакций и действий в реальном времени 24/7",
+      "Выявляет: новые устройства, скачивания, нехарактерные операции",
+      "Мгновенное уведомление или автоблокировка инцидента"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "security"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 2990000,
+      "setupMinor": 29990000,
+      "unit": null
+    },
+    "launchDays": 14,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 10 000 событий/мин",
+      "replacesOrAugments": "3 специалиста службы безопасности",
+      "claimedMonthlyFotMinor": 28000000,
+      "claimedMonthlySavingMinor": 36456000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "financial-monitoring",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "Финансовый мониторинг и кредитный скоринг",
+    "cluster": "Безопасность и комплаенс",
+    "description": [
+      "Проверка контрагентов: связи, суды, долги, признаки «однодневок»",
+      "Выявляет мошеннические транзакции и попытки обналичивания",
+      "Автоблокировка подозрительной операции + уведомление CFO"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "financial-monitoring"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 3990000,
+      "setupMinor": 54990000,
+      "unit": null
+    },
+    "launchDays": 14,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 500 транзакций/мин",
+      "replacesOrAugments": "2 риск‑менеджера",
+      "claimedMonthlyFotMinor": 50000000,
+      "claimedMonthlySavingMinor": 63610000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "compliance",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "ИИ‑контроль соблюдения регламентов (комплаенс)",
+    "cluster": "Безопасность и комплаенс",
+    "description": [
+      "Сканирует переписки, звонки, документы на нарушения и утечки",
+      "Готовит отчёты для аудита и регуляторов",
+      "Снижает риск штрафов и репутационных потерь"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "compliance"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 2490000,
+      "setupMinor": 20990000,
+      "unit": null
+    },
+    "launchDays": 10,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 5000 сообщений/мин",
+      "replacesOrAugments": "2 специалиста по комплаенс",
+      "claimedMonthlyFotMinor": 20000000,
+      "claimedMonthlySavingMinor": 26040000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "moderation",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "ИИ‑модерация контента",
+    "cluster": "Безопасность и комплаенс",
+    "description": [
+      "Детекция спама, токсичности, запрещённых изоб. и видео 24/7",
+      "Мгновенная блокировка или отправка на ручную проверку",
+      "Масштабирует модерацию: от 10 000 сообщений/мин без штата"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "moderation"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 1990000,
+      "setupMinor": 20990000,
+      "unit": null
+    },
+    "launchDays": 7,
+    "hardware": "CPU: 16 ядер (i9 / Ryzen 9)\nGPU: RTX 4070 16GB",
+    "advertised": {
+      "throughput": "от 10 000 постов/мин",
+      "replacesOrAugments": "4 модератора",
+      "claimedMonthlyFotMinor": 20000000,
+      "claimedMonthlySavingMinor": 26040000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "vision-quality",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "Визуальный контроль качества (компьютерное зрение)",
+    "cluster": "Производство и логистика",
+    "description": [
+      "Выявляет брак на конвейере 24/7: дефекты, недолив, маркировка",
+      "Ведёт статистику брака по типам и причинам",
+      "Снижает возвраты и репутационные потери"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "vision-quality"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 3490000,
+      "setupMinor": 30990000,
+      "unit": null
+    },
+    "launchDays": 20,
+    "hardware": "CPU: 8 ядер (i7 / Ryzen 7)\nGPU: RTX 3060 12GB ",
+    "advertised": {
+      "throughput": "от 1000 единиц/мин",
+      "replacesOrAugments": "3 контролёра ОТК",
+      "claimedMonthlyFotMinor": 30000000,
+      "claimedMonthlySavingMinor": 39060000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "warehouse",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "Управление складом и логистикой (ИИ‑оптимизация)",
+    "cluster": "Производство и логистика",
+    "description": [
+      "Оптимизирует размещение товаров и маршруты комплектации 24/7",
+      "Автопополнение запасов под прогноз продаж",
+      "Маршруты доставки с минимальным холостым пробегом"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "warehouse"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 2490000,
+      "setupMinor": 26990000,
+      "unit": null
+    },
+    "launchDays": 10,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 100 маршрутов/мин",
+      "replacesOrAugments": "2 логиста",
+      "claimedMonthlyFotMinor": 25000000,
+      "claimedMonthlySavingMinor": 32550000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "predictive-maintenance",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "Предиктивное обслуживание оборудования",
+    "cluster": "Производство и логистика",
+    "description": [
+      "Прогноз поломок по данным датчиков в реальном времени 24/7",
+      "Заявки ТО с приоритетом: сначала то, что реально сломается скорее",
+      "Снижает внеплановые простои на 30–50%"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "predictive-maintenance"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 3490000,
+      "setupMinor": 42990000,
+      "unit": null
+    },
+    "launchDays": 20,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 10 000 показаний/мин",
+      "replacesOrAugments": "2 сервисных инженера",
+      "claimedMonthlyFotMinor": 40000000,
+      "claimedMonthlySavingMinor": 52080000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "construction-bim",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "ИИ‑контроль строительства и BIM",
+    "cluster": "Производство и логистика",
+    "description": [
+      "Сравнивает фото/видео со стройплощадки с BIM-моделью 24/7",
+      "Выявляет отклонения от проекта и нарушения техники безопасности",
+      "Снижает штрафы, переделки и судебные споры"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "construction-bim"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 3990000,
+      "setupMinor": 42990000,
+      "unit": null
+    },
+    "launchDays": 20,
+    "hardware": "CPU: 16 ядер (i9 / Ryzen 9)\nGPU: RTX 4070 16GB",
+    "advertised": {
+      "throughput": "от 1000 кадров/мин",
+      "replacesOrAugments": "2 прораба / инженера ПТО",
+      "claimedMonthlyFotMinor": 40000000,
+      "claimedMonthlySavingMinor": 52080000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "recruiting",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "ИИ‑Рекрутинг и оценка персонала",
+    "cluster": "HR и управление персоналом",
+    "description": [
+      "Ранжирует резюме по релевантности 24/7, отсеивает неподходящих",
+      "Проводит интервью с анализом речи и эмоций",
+      "Автоонбординг: документы, ответы на вопросы новичка"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "recruiting"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 1990000,
+      "setupMinor": 15990000,
+      "unit": null
+    },
+    "launchDays": 10,
+    "hardware": "CPU: 16 ядер (i9 / Ryzen 9)\nGPU: RTX 4070 16GB",
+    "advertised": {
+      "throughput": "от 100 резюме/мин",
+      "replacesOrAugments": "2 рекрутера",
+      "claimedMonthlyFotMinor": 16000000,
+      "claimedMonthlySavingMinor": 20832000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "tutoring",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "Персонализированное обучение и ИИ‑тьютор",
+    "cluster": "HR и управление персоналом",
+    "description": [
+      "Генерирует тесты и задания под уровень конкретного ученика",
+      "Автопроверка развёрнутых ответов и эссе с обратной связью",
+      "Интерактивный тьютор 24/7, адаптирует траекторию под прогресс"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "tutoring"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 1990000,
+      "setupMinor": 15990000,
+      "unit": null
+    },
+    "launchDays": 7,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 50 проверок/мин",
+      "replacesOrAugments": "2 преподавателя / методиста",
+      "claimedMonthlyFotMinor": 16000000,
+      "claimedMonthlySavingMinor": 20832000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "clinic",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "ИИ‑помощник для клиник (медицина)",
+    "cluster": "Отраслевые специализированные решения",
+    "description": [
+      "Записывает пациентов 24/7 через сайт, мессенджеры, телефон",
+      "Автозаполнение электронных карт, расшифровка протоколов врачей",
+      "Предварительный анализ (рентген, КТ, МРТ) + напоминания о приёме"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "clinic"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 2490000,
+      "setupMinor": 17990000,
+      "unit": null
+    },
+    "launchDays": 10,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 100 карт/мин",
+      "replacesOrAugments": "3 администратора / регистратора",
+      "claimedMonthlyFotMinor": 18000000,
+      "claimedMonthlySavingMinor": 23436000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "legal",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "Юридический ИИ‑ассистент",
+    "cluster": "Отраслевые специализированные решения",
+    "description": [
+      "Анализирует договор: риски, невыгодные условия, несоответствия",
+      "Поиск аналогичной практики и готовые формулировки для документов",
+      "Проверка контрагента по открытым источникам: суды, долги, связи"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "legal"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 2990000,
+      "setupMinor": 24990000,
+      "unit": null
+    },
+    "launchDays": 7,
+    "hardware": "CPU: 4 ядра (i5 / Ryzen 5)\nGPU: — ",
+    "advertised": {
+      "throughput": "от 50 договоров/мин",
+      "replacesOrAugments": "2 юриста ",
+      "claimedMonthlyFotMinor": 24000000,
+      "claimedMonthlySavingMinor": 31248000,
+      "verified": false
+    },
+    "source": "BAIagent-B2B-price.xlsx (public, observed 2026-11-04)"
+  },
+  {
+    "slug": "email-marketing",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "Email-маркетолог",
+    "cluster": "Клиентский сервис и продажи",
+    "description": [
+      "Автоматические рассылки и сегментация с согласия получателей"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "email-marketing"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 1490000,
+      "setupMinor": null,
+      "unit": {
+        "kind": "email",
+        "priceMinor": 100
+      }
+    },
+    "launchDays": 7,
+    "hardware": "CPU: 2 ядра; GPU: —",
+    "advertised": {
+      "verified": false
+    },
+    "source": "2aos.ru catalog (observed 2026-11-04)"
+  },
+  {
+    "slug": "presentation",
+    "schemaVersion": "2aos.agent/v1",
+    "name": "Дизайн презентации",
+    "cluster": "Документооборот и офисные процессы",
+    "description": [
+      "Структура и редактируемые презентации из исходного текста по брендбуку"
+    ],
+    "status": "active",
+    "runtime": {
+      "kind": "builtin",
+      "handler": "presentation"
+    },
+    "pricing": {
+      "currency": "RUB",
+      "monthlyMinor": 3000000,
+      "setupMinor": null,
+      "unit": {
+        "kind": "presentation",
+        "priceMinor": 100000
+      }
+    },
+    "launchDays": 7,
+    "hardware": "CPU: 4 ядра; GPU по требованиям локальной модели",
+    "advertised": {
+      "verified": false
+    },
+    "source": "2aos.ru/razrabotchik (observed 2026-11-04)"
+  }
+]

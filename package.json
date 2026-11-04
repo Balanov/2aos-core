@@ -1,0 +1,23 @@
+{
+  "name": "2aos-core",
+  "version": "0.1.0",
+  "description": "Local-first runtime, control plane and business agents for 2AOS",
+  "type": "module",
+  "license": "LicenseRef-PolyForm-Noncommercial-1.0.0",
+  "engines": { "node": ">=24.0.0" },
+  "bin": { "2aos": "./bin/2aos.mjs" },
+  "scripts": {
+    "start": "node bin/2aos.mjs start",
+    "dev": "node bin/2aos.mjs start",
+    "check": "node scripts/check.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:coverage": "node --test --experimental-test-coverage tests/*.test.mjs",
+    "smoke": "node scripts/smoke.mjs"
+  },
+  "author": "Anton Balanov",
+  "homepage": "https://2aos.ru/",
+  "repository": { "type": "git", "url": "https://github.com/Balanov/2aos-core.git" },
+  "keywords": ["ai-agents", "local-first", "offline", "orchestration", "business-automation"],
+  "dependencies": {},
+  "enginesComment": "Uses node:sqlite and modern built-in test APIs; no runtime npm dependencies."
+}

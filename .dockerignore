@@ -1,0 +1,17 @@
+.git
+.gitignore
+.kimi
+.tools
+.tmp
+.2aos
+node_modules
+references
+website-source
+coverage
+*.log
+.env
+.env.*
+!.env.example
+docs
+tests
+.github

@@ -1,0 +1,72 @@
+[
+  {
+    "slug": "micro",
+    "name": "Продажи и учёт на автопилоте",
+    "audience": "Микро-бизнес",
+    "agents": [
+      "chat-voice",
+      "reputation",
+      "content-generation",
+      "invoice-ocr",
+      "accounting"
+    ],
+    "pricing": {
+      "currency": "RUB",
+      "retailMonthlyMinor": 11450000,
+      "monthlyMinor": 5725000
+    },
+    "launchDays": 14,
+    "hardware": "CPU: 8 ядер (i7 / Ryzen 7)\nGPU: RTX 3060 12 ГБ"
+  },
+  {
+    "slug": "small",
+    "name": "Операционка без людей",
+    "audience": "Малый бизнес",
+    "agents": [
+      "chat-voice",
+      "reputation",
+      "application-scoring",
+      "invoice-ocr",
+      "rpa",
+      "accounting",
+      "forecasting",
+      "security",
+      "financial-monitoring",
+      "warehouse"
+    ],
+    "pricing": {
+      "currency": "RUB",
+      "retailMonthlyMinor": 25900000,
+      "monthlyMinor": 12274882
+    },
+    "launchDays": 30,
+    "hardware": "CPU: 16 ядер (i9 / Ryzen 9)\nGPU: RTX 4090 24 ГБ"
+  },
+  {
+    "slug": "medium",
+    "name": "Цех без простоев",
+    "audience": "Средний бизнес",
+    "agents": [
+      "invoice-ocr",
+      "rpa",
+      "accounting",
+      "forecasting",
+      "reporting",
+      "security",
+      "compliance",
+      "moderation",
+      "vision-quality",
+      "warehouse",
+      "predictive-maintenance",
+      "construction-bim",
+      "legal"
+    ],
+    "pricing": {
+      "currency": "RUB",
+      "retailMonthlyMinor": 35870000,
+      "monthlyMinor": 16157658
+    },
+    "launchDays": 60,
+    "hardware": "CPU: 32 ядра (Xeon/ Epic)\nGPU: RTX A6000 48 ГБ"
+  }
+]
