@@ -7,6 +7,10 @@ function bool(value, fallback = false) {
   return ['1', 'true', 'yes', 'on'].includes(String(value).toLowerCase());
 }
 
+function list(value) {
+  return (Array.isArray(value) ? value : String(value || '').split(',')).map((item) => String(item).trim()).filter(Boolean);
+}
+
 function masterKey(dataDir, supplied) {
   const value = supplied || process.env.A2OS_MASTER_KEY;
   if (value) {
@@ -26,8 +30,9 @@ export function createConfig(overrides = {}) {
   const dataDir = resolve(overrides.dataDir || process.env.A2OS_DATA_DIR || '.2aos');
   mkdirSync(dataDir, { recursive: true });
   for (const dir of ['uploads', 'packages', 'artifacts', 'tmp']) mkdirSync(resolve(dataDir, dir), { recursive: true });
-  const allowedEndpoints = new Set((overrides.allowedEndpoints || process.env.A2OS_ALLOWED_ENDPOINTS || 'http://127.0.0.1:11434,http://localhost:11434')
-    .split(',').map((x) => x.trim()).filter(Boolean));
+  const allowedEndpoints = new Set(list(overrides.allowedEndpoints || process.env.A2OS_ALLOWED_ENDPOINTS || 'http://127.0.0.1:11434,http://localhost:11434'));
+  const hostAllowedRoots = list(overrides.hostAllowedRoots || process.env.A2OS_HOST_ALLOWED_ROOTS);
+  const configuredHostRoots = list(overrides.hostRoots || process.env.A2OS_HOST_ROOTS);
   return {
     dataDir,
     host: overrides.host || process.env.A2OS_HOST || '127.0.0.1',
@@ -50,6 +55,9 @@ export function createConfig(overrides = {}) {
     adminKey: overrides.adminKey || process.env.A2OS_ADMIN_KEY || '',
     masterKey: masterKey(dataDir, overrides.masterKey),
     allowedEndpoints,
+    hostAllowedRoots,
+    hostRoots: configuredHostRoots.length ? configuredHostRoots : hostAllowedRoots,
+    hostScanIntervalMs: Number(overrides.hostScanIntervalMs ?? process.env.A2OS_HOST_SCAN_INTERVAL_MS ?? 5000),
     publicBaseUrl: overrides.publicBaseUrl || process.env.A2OS_PUBLIC_BASE_URL || '',
     logLevel: overrides.logLevel || process.env.A2OS_LOG_LEVEL || 'info'
   };

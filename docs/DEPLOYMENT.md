@@ -44,3 +44,5 @@ PDF требует локальный `pdftotext`; изображения — `t
 - `GET /health/ready` — SQLite и модель. `model.available=false` не мешает deterministic agents, но языковые/VLM jobs обязаны завершаться ошибкой конфигурации.
 - `GET /v1/audit/verify` — hash-chain tenant.
 - `npm run smoke` — установка, OCR-счёт, артефакт и аудит на временной базе.
+- `npm run smoke:host` — разрешённый host discovery, RAG, рекомендации и аудит на тестовых файлах.
+- Host client и системные профили: [HOST_CLIENT.md](HOST_CLIENT.md). Developer Exchange: [DEVELOPER_EXCHANGE.md](DEVELOPER_EXCHANGE.md).

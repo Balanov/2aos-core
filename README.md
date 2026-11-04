@@ -12,6 +12,14 @@
 
 Node.js 24, SQLite через `node:sqlite`, **ноль обязательных npm-зависимостей**, никакой телеметрии.
 
+## Новое в 0.2
+
+- **Host client:** инвентаризация разрешённых дисков/каталогов, бизнес-классификация, RAG, business objects, рекомендации и watcher добавления/изменения/удаления. Нативные события + polling/diff fallback: [docs/HOST_CLIENT.md](docs/HOST_CLIENT.md).
+- **Системные профили:** read-only системная диагностика и owner-defined команды с timeout, ограничением вывода и approval/outbox для mutating actions.
+- **Developer Exchange:** машинные briefs по приватному спросу, JSON Schemas, acceptance criteria, `/.well-known/2aos.json` и `llms.txt`: [docs/DEVELOPER_EXCHANGE.md](docs/DEVELOPER_EXCHANGE.md).
+- **Кросс-платформенный CLI:** `2aos-developer` с командами scaffold/pack/validate/submit/status/dashboard и палитрой с Tab completion: `npm run developer`.
+- **Проверенный полный цикл:** host observation → brief → сторонняя сборка → директор accept → установка → выполнение → оплаченный счёт → developer revenue.
+
 ## Что реализовано
 
 - **26 встроенных типов агентов:** все 24 типа из публичного каталога BAIagent, Email-маркетолог и презентации. Реальные возможности и границы: [docs/AGENT_CATALOG.md](docs/AGENT_CATALOG.md).
@@ -51,10 +59,11 @@ curl -H "Authorization: Bearer ВАШ_КЛЮЧ" http://127.0.0.1:8787/v1/catalog
 npm run check
 npm test
 npm run smoke
+npm run smoke:host
 npm run test:coverage
 ```
 
-На момент публикации: **44/44 теста**, включая реальные HTTP-циклы, SMTP с локальным тестовым сервером, ZIP traversal, Ed25519, retry, epoch stop, tenant isolation и приватный k-порог. Измеренное покрытие: **85,58 % строк**. Подробности: [docs/VALIDATION.md](docs/VALIDATION.md).
+На момент публикации 0.2: **53/53 теста**, включая host watcher, системные approvals, developer flow, реальные HTTP-циклы, SMTP, ZIP traversal, Ed25519, retry, epoch stop, tenant isolation и приватный k-порог. Измеренное покрытие: **86,30 % строк**. Подробности: [docs/VALIDATION.md](docs/VALIDATION.md).
 
 ## Подключение локальной модели
 

@@ -12,6 +12,9 @@ import { canonicalJson, HttpError, id, nowIso, optionalString, parseJson, requir
 import { parseAgentPackage } from './packages.mjs';
 import { openApi } from './openapi.mjs';
 import { assertAllowedUrl } from './http.mjs';
+import { DeveloperExchange } from './developer.mjs';
+import { HostClient } from './host/client.mjs';
+import { HostSystem } from './host/system.mjs';
 
 const catalog = JSON.parse(readFileSync(new URL('../catalog/agents.json', import.meta.url), 'utf8'));
 const packages = JSON.parse(readFileSync(new URL('../catalog/packages.json', import.meta.url), 'utf8'));
@@ -19,7 +22,8 @@ const ROLE = { viewer: 10, partner: 20, developer: 30, operator: 50, admin: 80, 
 
 export function createRuntime(config) {
   const store = new Store(config), model = new LocalModel(config), knowledge = new KnowledgeBase(store, model), billing = new Billing(store, catalog), director = new Director(store, catalog, billing), privacy = new PrivacyGateway(store), dispatcher = new ConnectorDispatcher(store), orchestrator = new Orchestrator({ store, billing, model, knowledge, dispatcher });
-  const rateLimits = new Map();
+  const developerExchange = new DeveloperExchange(store), hostSystem = new HostSystem(config);
+  const rateLimits = new Map(), hostClients = new Map();
 
   async function handler(req, res) {
     const requestId = id('req'), started = Date.now();
@@ -38,6 +42,8 @@ export function createRuntime(config) {
         return send(res, 200, { status: 'ready', database: 'ok', model: await model.health(), telemetry: false });
       }
       if (path === '/openapi.json' && method === 'GET') return send(res, 200, openApi(config.publicBaseUrl || `http://${config.host}:${config.port}`));
+      if (path === '/.well-known/2aos.json' && method === 'GET') return send(res, 200, developerExchange.card(config.publicBaseUrl || `http://${config.host}:${config.port}`));
+      if (path === '/llms.txt' && method === 'GET') { res.setHeader('content-type', 'text/plain; charset=utf-8'); return send(res, 200, developerExchange.llmsText(config.publicBaseUrl || `http://${config.host}:${config.port}`)); }
       if (path === '/v1/catalog/public' && method === 'GET') return send(res, 200, { agents: catalog.map(publicAgent), packages });
       if (path === '/v1/leads' && method === 'POST') {
         rateLimit(rateLimits, req.socket.remoteAddress || 'local');
@@ -124,7 +130,43 @@ export function createRuntime(config) {
       if (path === '/v1/audit/verify' && method === 'GET') return send(res, 200, store.verifyAudit(tenantId));
       if (path === '/v1/artifacts' && method === 'GET') return send(res, 200, { artifacts: store.all('SELECT id,job_id,kind,uri,metadata_json,created_at FROM artifacts WHERE tenant_id=? ORDER BY created_at DESC LIMIT 500', tenantId) });
       if ((m = match('/v1/artifacts/:id')) && method === 'GET') { const artifact = store.get('SELECT * FROM artifacts WHERE id=? AND tenant_id=?', m.id, tenantId); require(artifact, 404, 'artifact_not_found', 'Artifact not found'); return send(res, 200, { ...artifact, content: parseJson(artifact.content_json), metadata: parseJson(artifact.metadata_json, {}) }); }
+      if (path === '/v1/developer/opportunities' && method === 'GET') { role('developer'); return send(res, 200, { opportunities: developerExchange.opportunities(url.searchParams.get('niche')) }); }
+      if ((m = match('/v1/developer/briefs/:niche')) && method === 'GET') { role('developer'); return send(res, 200, developerExchange.brief(m.niche)); }
+      if ((m = match('/v1/developer/scaffold/:niche')) && method === 'GET') { role('developer'); return send(res, 200, { manifest: developerExchange.scaffold(m.niche) }); }
+      if (path === '/v1/director/submissions' && method === 'GET') { role('operator'); return send(res, 200, { submissions: store.all("SELECT id,tenant_id,slug,version,developer_id,status,digest,created_at FROM agent_versions WHERE status IN ('moderation','active') ORDER BY created_at DESC") }); }
+      if ((m = match('/v1/director/submissions/:id/accept')) && method === 'POST') {
+        role('admin');
+        const version = store.get('SELECT * FROM agent_versions WHERE id=?', m.id);
+        require(version, 404, 'version_not_found', 'Submission not found');
+        store.run("UPDATE agent_versions SET status='active',moderated_at=?,moderation_reason=NULL WHERE id=?", nowIso(), m.id);
+        store.audit({ tenantId: version.tenant_id, actor, action: 'agent.moderated', entityType: 'agent_version', entityId: m.id, payload: { status: 'active', via: 'director' } });
+        return send(res, 200, billing.quote({ tenantId, agentSlug: version.slug, actor, trialDays: body.trialDays ?? 7 }));
+      }
+      if (path === '/v1/host/discover' && method === 'POST') { role('operator'); const result = await hostFor(body.roots, body.policy).discover(); return send(res, 200, result); }
+      if (path === '/v1/host/inventory' && method === 'GET') { role('viewer'); const latest = hostFor().latest(); return send(res, 200, { ...latest, files: latest.files.slice(0, Number(url.searchParams.get('limit') || 1000)) }); }
+      if (path === '/v1/host/watch/start' && method === 'POST') { role('operator'); await hostFor(body.roots, body.policy).start(); return send(res, 202, { watching: true, intervalMs: config.hostScanIntervalMs }); }
+      if (path === '/v1/host/watch/stop' && method === 'POST') { role('operator'); await hostFor().stop(); return send(res, 200, { watching: false }); }
+      if (path === '/v1/host/changes' && method === 'GET') { role('viewer'); return send(res, 200, { changes: hostFor().changes() }); }
+      if (path === '/v1/host/profiles' && method === 'GET') { role('admin'); return send(res, 200, { profiles: hostSystem.profiles() }); }
+      if (path === '/v1/host/profiles' && method === 'POST') { role('owner'); const profile = hostSystem.registerProfile(body); store.audit({ tenantId, actor, action: 'host.profile_registered', entityType: 'host_profile', entityId: body.name, payload: { mutation: body.mutation === true, executable: body.executable, args: body.args } }); return send(res, 201, { profile }); }
+      if ((m = match('/v1/host/system/:profile')) && method === 'POST') {
+        role('operator');
+        const profile = hostSystem.profiles()[m.profile];
+        require(profile && !profile.mutation, 403, 'approval_required', 'Mutating profiles require host.command approval');
+        return send(res, 200, await hostSystem.execute(m.profile, { input: body.input || '' }));
+      }
+      if (path === '/v1/host/effects' && method === 'POST') {
+        role('admin');
+        const result = await orchestrator.prepareEffect({ job: { id: null, tenant_id: tenantId, agent_slug: 'host-system', epoch: store.epoch() }, effect: { type: 'host.command', integration: body.integration || 'host-shell', payload: { profile: body.profile, input: body.input || '' }, consequential: true, idempotencyKey: body.idempotencyKey }, autonomous: body.autonomous === true, actor });
+        return send(res, 202, result);
+      }
       throw new HttpError(404, 'not_found', 'API route not found');
+
+      function hostFor(roots = config.hostRoots, policy = {}) {
+        const key = `${tenantId}:${(roots || config.hostRoots).join('|')}`;
+        if (!hostClients.has(key)) hostClients.set(key, new HostClient({ store, knowledge, director, tenantId, roots: roots || config.hostRoots, policy, intervalMs: config.hostScanIntervalMs }));
+        return hostClients.get(key);
+      }
 
       function uploadPackage(buffer) {
         const parsed = parseAgentPackage(buffer, config), versionId = id('agent_version');
@@ -142,7 +184,7 @@ export function createRuntime(config) {
   }
 
   const server = createServer(handler);
-  return { store, model, knowledge, billing, director, privacy, dispatcher, orchestrator, handler, server, catalog, packages };
+  return { store, model, knowledge, billing, director, privacy, dispatcher, orchestrator, developerExchange, hostSystem, hostClients, handler, server, catalog, packages };
 }
 
 function matchPath(path, pattern) {

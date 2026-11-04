@@ -1,18 +1,20 @@
 {
   "name": "2aos-core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Local-first runtime, control plane and business agents for 2AOS",
   "type": "module",
   "license": "LicenseRef-PolyForm-Noncommercial-1.0.0",
   "engines": { "node": ">=24.0.0" },
-  "bin": { "2aos": "./bin/2aos.mjs" },
+  "bin": { "2aos": "./bin/2aos.mjs", "2aos-developer": "./bin/2aos-developer.mjs" },
   "scripts": {
     "start": "node bin/2aos.mjs start",
     "dev": "node bin/2aos.mjs start",
+    "developer": "node bin/2aos-developer.mjs palette",
     "check": "node scripts/check.mjs",
     "test": "node --test tests/*.test.mjs",
     "test:coverage": "node --test --experimental-test-coverage tests/*.test.mjs",
-    "smoke": "node scripts/smoke.mjs"
+    "smoke": "node scripts/smoke.mjs",
+    "smoke:host": "node scripts/smoke-host.mjs"
   },
   "author": "Anton Balanov",
   "homepage": "https://2aos.ru/",

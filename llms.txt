@@ -1,0 +1,23 @@
+# 2AOS Core
+
+Local-first host inventory, AI director, agent runtime, developer exchange and billing.
+
+## Runtime contracts
+
+- Node.js 24, no runtime npm dependencies, SQLite via node:sqlite.
+- Host scanning requires A2OS_HOST_ALLOWED_ROOTS; do not scan user disks implicitly.
+- Use evidence.source and observedAt for observations.
+- Every consequential action requires exact approval digest or explicit autonomous policy.
+- Third-party packages are declarative manifests, not arbitrary JS in the main process.
+- Market briefs are available only for privacy-approved aggregates of at least 5 independent tenants.
+- Revenue comes only from paid invoices and ledger entries, never demo numbers.
+
+## Main flows
+
+Host: POST /v1/host/discover → recommendations → installation quote → approval → jobs/pools.
+Developer: GET /v1/developer/opportunities → brief → scaffold/validate/submit → director accept → installation approval → job → paid invoice → dashboard.
+Capabilities: /.well-known/2aos.json and /openapi.json.
+Developer CLI: node bin/2aos-developer.mjs commands and node bin/2aos-developer.mjs palette.
+Validation: npm run check, npm test, npm run smoke, npm run smoke:host.
+
+See docs/HOST_CLIENT.md, docs/DEVELOPER_EXCHANGE.md, docs/API.md, SECURITY.md and LICENSE.

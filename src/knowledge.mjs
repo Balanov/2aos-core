@@ -29,6 +29,15 @@ export class KnowledgeBase {
     return { documentId, version, contentHash: hash, chunks: chunks(text).length };
   }
 
+  removeSource({ tenantId, sourceUri, actor }) {
+    const documents = this.store.all('SELECT id FROM knowledge_documents WHERE tenant_id=? AND source_uri=?', tenantId, sourceUri);
+    this.store.transaction(() => {
+      for (const document of documents) this.store.run('DELETE FROM knowledge_documents WHERE id=? AND tenant_id=?', document.id, tenantId);
+      this.store.audit({ tenantId, actor, action: 'knowledge.source_removed', entityType: 'document_source', entityId: sourceUri, payload: { versions: documents.length } });
+    });
+    return { removedVersions: documents.length };
+  }
+
   search(tenantId, query, limit = 5) {
     const queryTerms = [...new Set(terms(query))];
     require(queryTerms.length > 0, 422, 'empty_query', 'Query has no searchable terms');

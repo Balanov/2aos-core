@@ -22,6 +22,7 @@ if (command === 'start') {
   const shutdown = async () => {
     if (stopping) return;
     stopping = true;
+    for (const client of runtime.hostClients.values()) await client.stop();
     await runtime.orchestrator.shutdown();
     runtime.server.close(() => { runtime.store.close(); process.exit(0); });
     setTimeout(() => process.exit(1), 10000).unref();

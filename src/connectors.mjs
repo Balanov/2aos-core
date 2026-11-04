@@ -3,9 +3,10 @@ import { canonicalJson, id, nowIso, require } from './util.mjs';
 import { encryptJson, decryptJson } from './security.mjs';
 import { requestJson } from './http.mjs';
 import { sendSmtp } from './smtp.mjs';
+import { HostSystem } from './host/system.mjs';
 
 export class ConnectorDispatcher {
-  constructor(store) { this.store = store; this.config = store.config; }
+  constructor(store) { this.store = store; this.config = store.config; this.hostSystem = new HostSystem(store.config); }
 
   upsertIntegration({ tenantId, kind, name, config, actor }) {
     require(/^[a-z][a-z0-9-]{1,50}$/.test(kind) && /^[a-z][a-z0-9-]{1,50}$/.test(name), 422, 'validation_error', 'Invalid integration kind/name');
@@ -63,6 +64,11 @@ export class ConnectorDispatcher {
       require(operation === 'message.send', 422, 'unsupported_operation', `WhatsApp cannot execute ${operation}`);
       const response = await requestJson(`${config.baseUrl || 'https://graph.facebook.com/v24.0'}/${config.phoneNumberId}/messages`, { method: 'POST', headers: { authorization: `Bearer ${config.token}` }, body: { messaging_product: 'whatsapp', to: payload.to || config.recipient, type: 'text', text: { body: payload.text } }, allowedEndpoints: this.config.allowedEndpoints });
       receipt = { provider: 'whatsapp', accepted: Boolean(response.data?.messages?.[0]?.id), assertion: response.data };
+    } else if (integration.kind === 'host-shell') {
+      require(operation === 'host.command', 422, 'unsupported_operation', `host-shell cannot execute ${operation}`);
+      const assertion = await this.hostSystem.execute(payload.profile || config.profile, { input: payload.input || '' });
+      require(assertion.exitCode === 0, 502, 'host_command_failed', `Host command exited with code ${assertion.exitCode}`, { signal: assertion.signal });
+      receipt = { provider: 'host-shell', accepted: true, assertion };
     } else throw Object.assign(new Error(`Unsupported integration kind ${integration.kind}`), { status: 422, code: 'unsupported_integration' });
     this.store.run("UPDATE outbox SET status='sent',provider_receipt_json=?,error=NULL,updated_at=? WHERE id=?", canonicalJson(receipt), nowIso(), outboxId);
     return receipt;

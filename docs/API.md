@@ -180,6 +180,34 @@ POST /v1/market/export
 
 Без модели RAG возвращает найденные фрагменты и цитаты. При отсутствии подтверждения прямо сообщает об этом.
 
+## 10. Host client и системные профили
+
+Включите `A2OS_HOST_ALLOWED_ROOTS` и `A2OS_HOST_ROOTS`, затем:
+
+- `POST /v1/host/discover` — snapshot, RAG, business objects и рекомендации;
+- `GET /v1/host/inventory` — последний snapshot metadata без содержимого файлов;
+- `POST /v1/host/watch/start` / `stop` — watcher с native events + polling fallback;
+- `GET /v1/host/changes` — добавления/изменения/удаления;
+- `GET /v1/host/profiles` — системные профили;
+- `POST /v1/host/system/{profile}` — read-only диагностика;
+- `POST /v1/host/profiles` — точный custom profile владельца;
+- `POST /v1/host/effects` — mutating command через integration `host-shell` и approval.
+
+Подробности: [HOST_CLIENT.md](HOST_CLIENT.md).
+
+## 11. Developer Exchange
+
+- `GET /.well-known/2aos.json` — машинная карта команд;
+- `GET /v1/developer/opportunities` — обезличенные ниши;
+- `GET /v1/developer/briefs/{niche}` — схемы и acceptance criteria;
+- `GET /v1/developer/scaffold/{niche}` — валидный manifest starter;
+- `GET /v1/director/submissions` — пакеты на рассмотрении;
+- `POST /v1/director/submissions/{id}/accept` — активация и installation quote.
+
+CLI: `node bin/2aos-developer.mjs opportunities`, `brief`, `scaffold`, `pack`, `validate`, `submit`, `status`, `dashboard`. Палитра: `npm run developer`.
+
+Подробности: [DEVELOPER_EXCHANGE.md](DEVELOPER_EXCHANGE.md).
+
 ## Коды состояний для фронта
 
 - `draft`, `moderation`, `active`, `rejected`, `disabled` — версии агентов.

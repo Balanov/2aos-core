@@ -19,10 +19,25 @@ export function openApi(baseUrl) {
   add('/v1/packages/upload', 'post', 'Upload signed declarative agent ZIP'); add('/v1/packages/import', 'post', 'Import agent ZIP from allowlisted URL');
   add('/v1/agent-versions/{id}/moderate', 'post', 'Activate or reject submitted agent');
   add('/v1/developer/dashboard', 'get', 'Real installations, revenue and conversion');
+  add('/.well-known/2aos.json', 'get', 'Discover developer capabilities', false); add('/llms.txt', 'get', 'Agent-readable integration instructions', false);
+  add('/v1/developer/opportunities', 'get', 'List anonymized business opportunities');
+  add('/v1/developer/briefs/{niche}', 'get', 'Get machine-readable developer brief');
+  add('/v1/developer/scaffold/{niche}', 'get', 'Get declarative agent manifest starter');
+  add('/v1/director/submissions', 'get', 'List agent submissions for director review');
+  add('/v1/director/submissions/{id}/accept', 'post', 'Accept submission and create installation quote');
+  add('/v1/host/discover', 'post', 'Inventory approved host roots and build business map');
+  add('/v1/host/inventory', 'get', 'Read latest host inventory');
+  add('/v1/host/watch/start', 'post', 'Start native/polling filesystem watcher');
+  add('/v1/host/watch/stop', 'post', 'Stop filesystem watcher');
+  add('/v1/host/changes', 'get', 'Read recent host changes');
+  add('/v1/host/profiles', 'get', 'List read-only and custom system profiles');
+  add('/v1/host/profiles', 'post', 'Register exact custom system profile');
+  add('/v1/host/system/{profile}', 'post', 'Execute read-only system profile');
+  add('/v1/host/effects', 'post', 'Create approved host command effect');
   add('/v1/partners', 'post', 'Create referral partner'); add('/v1/partners/{id}/dashboard', 'get', 'Partner referrals and commission');
   add('/v1/privacy/consent', 'post', 'Opt in or out of aggregate signals'); add('/v1/privacy/signals', 'post', 'Create allowlisted local signal'); add('/v1/market/export', 'post', 'Build k-threshold market aggregate'); add('/v1/market/overview', 'get', 'Read anonymized market aggregates');
   add('/v1/knowledge/documents', 'post', 'Ingest local knowledge document'); add('/v1/knowledge/query', 'post', 'Grounded local knowledge query');
   add('/v1/schedules', 'post', 'Schedule recurring local agent job'); add('/v1/stop', 'post', 'Epoch-fenced emergency stop');
   add('/v1/audit/verify', 'get', 'Verify tenant audit hash chain');
-  return { openapi: '3.1.0', info: { title: '2AOS Core API', version: '0.1.0', description: 'Local-first agent director, orchestration, marketplace, billing and privacy gateway. See docs/API.md for payload examples.' }, servers: [{ url: baseUrl }], components: { securitySchemes: { bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'API key' } } }, paths };
+  return { openapi: '3.1.0', info: { title: '2AOS Core API', version: '0.2.0', description: 'Local-first agent director, orchestration, marketplace, billing and privacy gateway. See docs/API.md for payload examples.' }, servers: [{ url: baseUrl }], components: { securitySchemes: { bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'API key' } } }, paths };
 }

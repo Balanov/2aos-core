@@ -1,5 +1,23 @@
 import { canonicalJson, id, nowIso, require, round } from './util.mjs';
 
+const PROCESS_PROFILES = {
+  'invoice-manual': { agents: ['invoice-ocr', 'accounting'], metric: 'document_error_rate' },
+  'contract-review': { agents: ['legal'], metric: 'reviewed_risk_count' },
+  'accounting-manual': { agents: ['accounting', 'rpa'], metric: 'reconciliation_error_rate' },
+  'warehouse-stock': { agents: ['warehouse', 'forecasting'], metric: 'stockout_rate' },
+  'recruiting-resume': { agents: ['recruiting'], metric: 'screening_time' },
+  'customer-reviews': { agents: ['reputation', 'moderation'], metric: 'negative_response_time' },
+  'knowledge-regulation': { agents: ['knowledge-rag', 'compliance'], metric: 'grounded_answer_rate' },
+  'sales-crm': { agents: ['chat-voice', 'application-scoring'], metric: 'qualified_action_rate' },
+  'security-logs': { agents: ['security', 'financial-monitoring'], metric: 'incident_rate' },
+  'machine-sensors': { agents: ['predictive-maintenance', 'vision-quality'], metric: 'unplanned_downtime' },
+  'content-presentation': { agents: ['content-generation', 'presentation'], metric: 'approved_content_rate' },
+  'knowledge-communication': { agents: ['knowledge-rag', 'compliance'], metric: 'grounded_answer_rate' },
+  'machine-vision': { agents: ['vision-quality'], metric: 'reviewed_defect_rate' },
+  'route-logistics': { agents: ['driver-logistics', 'warehouse'], metric: 'cost_per_route' },
+  'development-tasks': { agents: ['knowledge-rag'], metric: 'grounded_answer_rate' }
+};
+
 const RULES = [
   { match: /invoice|bill|document|account|счет|наклад|бухгал/i, agents: ['invoice-ocr', 'accounting'], metric: 'document_error_rate' },
   { match: /call|lead|dialog|phone|звон|лид|продаж/i, agents: ['chat-voice', 'application-scoring'], metric: 'qualified_action_rate' },
@@ -57,7 +75,7 @@ export class Director {
     require(observation && typeof observation === 'object', 422, 'validation_error', 'Observation must be an object');
     require(typeof observation.processCode === 'string' && observation.processCode.length > 1, 422, 'validation_error', 'processCode is required');
     require(observation.evidence?.source && observation.evidence?.observedAt, 422, 'evidence_required', 'Every observation needs evidence.source and observedAt');
-    const rule = RULES.find((item) => item.match.test(`${observation.processCode} ${observation.description || ''}`));
+    const rule = PROCESS_PROFILES[observation.processCode] || RULES.find((item) => item.match.test(`${observation.processCode} ${observation.description || ''}`));
     return {
       id: observation.id || id('observation'), processCode: observation.processCode,
       description: observation.description || '', evidence: observation.evidence,

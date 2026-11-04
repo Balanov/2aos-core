@@ -7,9 +7,10 @@ import { createRuntime } from '../src/app.mjs';
 export function fixture(t, options = {}) {
   const dataDir = resolve('.tmp', randomUUID());
   mkdirSync(dataDir, { recursive: true });
-  const config = createConfig({ dataDir, masterKey: Buffer.alloc(32, 9).toString('base64'), adminKey: 'test-key', logLevel: 'silent', leaseMs: options.leaseMs || 200, model: options.model, developmentPackages: true });
+  const config = createConfig({ dataDir, masterKey: Buffer.alloc(32, 9).toString('base64'), adminKey: 'test-key', logLevel: 'silent', leaseMs: options.leaseMs || 200, model: options.model, developmentPackages: true, hostAllowedRoots: options.hostAllowedRoots || [], hostRoots: options.hostRoots || [], hostScanIntervalMs: options.hostScanIntervalMs || 5000 });
   const runtime = createRuntime(config);
   t.after(async () => {
+    for (const client of runtime.hostClients.values()) await client.stop();
     await runtime.orchestrator.shutdown();
     if (runtime.server.listening) await new Promise((resolveClose) => runtime.server.close(resolveClose));
     runtime.store.close();
