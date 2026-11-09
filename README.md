@@ -1,16 +1,24 @@
-# 2AOS Core
-
-**Локальная инженерная сборка ИИ-директора, оркестратора бизнес-агентов, маркетплейса, биллинга и приватного рынка требований.**
-
-[![GitHub stars](https://img.shields.io/github/stars/Balanov/2aos-core?style=social)](https://github.com/Balanov/2aos-core/stargazers)
-[![CI](https://github.com/Balanov/2aos-core/actions/workflows/ci.yml/badge.svg)](https://github.com/Balanov/2aos-core/actions/workflows/ci.yml)
-[![License: PolyForm Noncommercial](https://img.shields.io/badge/license-PolyForm--Noncommercial-4453E1)](LICENSE)
+<div align="center">
+  <img src="docs/readme/hero.png" alt="2AOS Core — от наблюдения к оплаченному результату и приватному рыночному агрегату" width="100%">
+  <p><strong>Локальная инженерная сборка ИИ-директора, оркестратора бизнес-агентов, маркетплейса, биллинга и приватного рынка требований.</strong></p>
+  <p><a href="#что-реализовано">Возможности</a> · <a href="#быстрый-старт">Быстрый старт</a> · <a href="#проверка-сборки">Проверки</a> · <a href="https://balanov.pro/2aos-core/">Сайт</a></p>
+  <p>
+    <a href="https://github.com/Balanov/2aos-core/stargazers"><img src="https://img.shields.io/github/stars/Balanov/2aos-core?style=social" alt="GitHub stars"></a>
+    <a href="https://github.com/Balanov/2aos-core/actions/workflows/ci.yml"><img src="https://github.com/Balanov/2aos-core/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/license-PolyForm--Noncommercial-4453E1" alt="PolyForm Noncommercial license"></a>
+  </p>
+</div>
 
 Это не копия лендинга и не набор заглушек. Сборка реализует полный программный цикл:
 
 **наблюдение → baseline → рекомендация → точная цена → approval → установка → DAG/пулы → артефакты и KPI → usage/invoice/ledger → приватный рыночный агрегат.**
 
 Node.js 24, SQLite через `node:sqlite`, **ноль обязательных npm-зависимостей**, никакой телеметрии.
+
+<div align="center">
+  <img src="docs/readme/workflow.png" alt="Проверяемый цикл 2AOS: наблюдение, цена и approval, установка, работа и артефакты, счёт и приватный рынок" width="100%">
+  <p><sub>Каждое действие имеет цену, approval, артефакты и audit trail. Факт оплаты требует внешнего receipt.</sub></p>
+</div>
 
 ## Новое в 0.2
 
